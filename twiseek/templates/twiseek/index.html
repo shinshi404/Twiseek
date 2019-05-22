@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+  <form action="{% url 'twiseek:search' %}" method="POST">
+    {% csrf_token %}
+    <div>
+      <label>検索:<input type="text" id="name" name="search_word"></label>
+      <br>
+      <label>リツイート数<br>
+        <input type="radio" name="retweet" value="0" checked>指定なし
+        <input type="radio" name="retweet" value="1">1以上
+        <input type="radio" name="retweet" value="2">10以上
+        <input type="radio" name="retweet" value="3">100以上
+        <input type="radio" name="retweet" value="4">1000以上
+      </label>
+      <br>
+      <label>お気に入り数<br>
+        <input type="radio" name="favo" value="0" checked>指定なし
+        <input type="radio" name="favo" value="1">1以上
+        <input type="radio" name="favo" value="2">10以上
+        <input type="radio" name="favo" value="3">100以上
+        <input type="radio" name="favo" value="4">1000以上
+      </label>
+      <br>
+      <label>取得件数<br>
+        <input type="radio" name="disp" value="0" checked>5件
+        <input type="radio" name="disp" value="1">10件
+        <input type="radio" name="disp" value="2">20件
+      </label>
+      <br>
+      <label>言語指定<br>
+        <input type="radio" name="lang" value="0" checked>指定なし
+        <input type="radio" name="lang" value="1">日本語
+        <input type="radio" name="lang" value="2">英語
+        <input type="radio" name="lang" value="3">ドイツ語
+        <input type="radio" name="lang" value="4">中国語
+      </label>
+      <br>
+      <input type="submit" value="検索">
+    </div>
+  </form>
+  {% if timeline %}
+    ↓↓検索結果↓↓<br>
+    {% for tweet in timeline %}
+      <img src="{{ tweet.user.profile_image_url }}"> {{ tweet.user.name }} <br> {{ tweet.text }} <br> 
+    {% endfor %}
+  {% endif %}
+</body>
+</html>
